@@ -1,0 +1,139 @@
+<!-- PHASE 1 -->
+<div class="phase" id="p1"></div>
+
+<!-- PHASE 2 -->
+<div class="phase" id="p2">
+
+<div class="browser">
+
+<div class="topbar">
+<div class="dot red"></div>
+<div class="dot yellow"></div>
+<div class="dot green"></div>
+<div class="url">https://ridex.pro/store</div>
+</div>
+
+<div class="header">
+<div class="logo">⚡ RideX Pro</div>
+<div class="nav">
+<span>Shop</span><span>Deals</span><span>Support</span>
+</div>
+
+<div class="cart" onclick="openCart()">
+🛒<div class="badge" id="count">0</div>
+</div>
+</div>
+
+<div class="hero">Premium Phone Store</div>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://i.imgur.com/3Qf7Q8Q.png">
+<h4>iPhone 17</h4>
+<button class="btn" onclick="add()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/3Qf7Q8Q.png">
+<h4>iPhone 17 Pro</h4>
+<button class="btn" onclick="add()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/3Qf7Q8Q.png">
+<h4>iPhone 17 Max</h4>
+<button class="btn" onclick="add()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/3Qf7Q8Q.png">
+<h4>iPhone 16 Pro</h4>
+<button class="btn" onclick="add()">Add to Cart</button>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- CART -->
+<div class="modal" id="modal">
+<div class="box">
+<h3>Cart</h3>
+<div id="list"></div>
+<button class="place" onclick="order()">🚀 Place Order</button>
+</div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase" id="p3">
+<div class="check">✔</div>
+<div class="road" id="road">
+<div class="lines"></div>
+<img class="truck" src="https://i.imgur.com/O3ZQZ9Q.png">
+</div>
+</div>
+
+<script>
+
+let count=0;
+
+function start(){
+document.getElementById("p1").style.display="block";
+
+let i=0;
+const phones=[
+"iPhone 17 Pro","iPhone 17","iPhone 17 Max","iPhone 16 Pro"
+];
+
+phones.forEach((name,index)=>{
+setTimeout(()=>{
+let d=document.createElement("div");
+d.className="slide";
+d.style.setProperty("--c",["#4a9acc","#ff5f57","#28c840","#febc2e"][index]);
+
+d.innerHTML=`
+<img src="https://i.imgur.com/3Qf7Q8Q.png">
+<div class="caption">${name}</div>
+`;
+
+document.getElementById("p1").appendChild(d);
+},index*2200);
+});
+
+setTimeout(()=>{p1.style.display="none";p2.style.display="block"},9000);
+}
+
+start();
+
+// CART
+function add(){
+count++;
+document.getElementById("count").innerText=count;
+}
+
+function openCart(){
+document.getElementById("modal").style.display="flex";
+document.getElementById("list").innerHTML=
+Array(count).fill(0).map(()=>"<div class='item'>iPhone <span>✕</span></div>").join("");
+}
+
+function order(){
+document.getElementById("modal").style.display="none";
+document.getElementById("p2").style.display="none";
+document.getElementById("p3").style.display="block";
+
+// CONFETTI
+for(let i=0;i<140;i++){
+confetti({particleCount:1,spread:100,origin:{y:0.6}});
+}
+
+// ROAD + TRUCK
+document.getElementById("road").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
