@@ -1,137 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RideX Pro Ad</title>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial;
+background:#000;
+color:white;
+}
+
+.phase{
+position:absolute;
+inset:0;
+display:none;
+}
+
+/* ---------- PHASE 1 ---------- */
+.slide{
+position:absolute;
+right:-200px;
+top:50%;
+transform:translateY(-50%);
+width:180px;
+height:320px;
+background:#111;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+animation:move 2.2s forwards;
+box-shadow:0 0 40px var(--c);
+}
+
+@keyframes move{
+0%{right:-200px;opacity:0}
+30%{opacity:1}
+70%{right:50%;transform:translateY(-50%) scale(1.1)}
+100%{right:120%;opacity:0}
+}
+
+.caption{
+position:absolute;
+bottom:-30px;
+font-size:12px;
+opacity:.7;
+}
+
+.bar{
+position:absolute;
+top:10px;
+left:10px;
+right:10px;
+height:3px;
+background:#222;
+}
+
+.bar span{
+display:block;
+height:100%;
+background:#4a9acc;
+animation:load 2.2s linear;
+}
+
+@keyframes load{from{width:0}to{width:100%}}
+
+/* ---------- PHASE 2 ---------- */
+.browser{
+width:90%;
+max-width:900px;
+margin:40px auto;
+background:#111;
+border-radius:15px;
+overflow:hidden;
+}
+
+.top{
+display:flex;
+padding:10px;
+background:#1a1a1a;
+}
+
+.dot{width:10px;height:10px;border-radius:50%;margin-right:6px}
+.red{background:red}
+.yellow{background:yellow}
+.green{background:lime}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:20px;
+}
+
+.card{
+background:#222;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.btn{
+margin-top:10px;
+background:green;
+border:none;
+padding:8px;
+color:white;
+border-radius:8px;
+}
+
+/* ---------- PHASE 3 ---------- */
+.success{
+font-size:80px;
+text-align:center;
+margin-top:120px;
+}
+
+.road{
+position:absolute;
+bottom:0;
+height:100px;
+width:100%;
+background:#111;
+display:none;
+}
+
+.lines{
+height:100%;
+background:repeating-linear-gradient(90deg,#fff 0 20px,transparent 20px 40px);
+opacity:.2;
+animation:moveRoad 1s linear infinite;
+}
+
+@keyframes moveRoad{
+from{transform:translateX(0)}
+to{transform:translateX(-40px)}
+}
+</style>
+</head>
+
+<body>
+
 <!-- PHASE 1 -->
 <div class="phase" id="p1"></div>
 
 <!-- PHASE 2 -->
 <div class="phase" id="p2">
-
 <div class="browser">
-
-<div class="topbar">
+<div class="top">
 <div class="dot red"></div>
 <div class="dot yellow"></div>
 <div class="dot green"></div>
-<div class="url">https://ridex.pro/store</div>
 </div>
-
-<div class="header">
-<div class="logo">⚡ RideX Pro</div>
-<div class="nav">
-<span>Shop</span><span>Deals</span><span>Support</span>
-</div>
-
-<div class="cart" onclick="openCart()">
-🛒<div class="badge" id="count">0</div>
-</div>
-</div>
-
-<div class="hero">Premium Phone Store</div>
 
 <div class="grid">
-
-<div class="card">
-<img src="https://i.imgur.com/3Qf7Q8Q.png">
-<h4>iPhone 17</h4>
-<button class="btn" onclick="add()">Add to Cart</button>
+<div class="card">iPhone 17<button class="btn" onclick="buy()">Add</button></div>
+<div class="card">iPhone 17 Pro<button class="btn" onclick="buy()">Add</button></div>
+<div class="card">iPhone 16 Pro<button class="btn" onclick="buy()">Add</button></div>
+<div class="card">iPhone 16<button class="btn" onclick="buy()">Add</button></div>
 </div>
 
-<div class="card">
-<img src="https://i.imgur.com/3Qf7Q8Q.png">
-<h4>iPhone 17 Pro</h4>
-<button class="btn" onclick="add()">Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/3Qf7Q8Q.png">
-<h4>iPhone 17 Max</h4>
-<button class="btn" onclick="add()">Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/3Qf7Q8Q.png">
-<h4>iPhone 16 Pro</h4>
-<button class="btn" onclick="add()">Add to Cart</button>
-</div>
-
-</div>
-
-</div>
-</div>
-
-<!-- CART -->
-<div class="modal" id="modal">
-<div class="box">
-<h3>Cart</h3>
-<div id="list"></div>
-<button class="place" onclick="order()">🚀 Place Order</button>
 </div>
 </div>
 
 <!-- PHASE 3 -->
 <div class="phase" id="p3">
-<div class="check">✔</div>
-<div class="road" id="road">
-<div class="lines"></div>
-<img class="truck" src="https://i.imgur.com/O3ZQZ9Q.png">
-</div>
+<div class="success">✔</div>
+<div class="road"><div class="lines"></div></div>
 </div>
 
 <script>
 
+let p1=document.getElementById("p1");
+let p2=document.getElementById("p2");
+let p3=document.getElementById("p3");
+
 let count=0;
 
 function start(){
-document.getElementById("p1").style.display="block";
 
-let i=0;
-const phones=[
-"iPhone 17 Pro","iPhone 17","iPhone 17 Max","iPhone 16 Pro"
-];
+p1.style.display="block";
 
-phones.forEach((name,index)=>{
+const phones=["17 Pro","17","17 Max","16 Pro"];
+
+phones.forEach((t,i)=>{
 setTimeout(()=>{
 let d=document.createElement("div");
 d.className="slide";
-d.style.setProperty("--c",["#4a9acc","#ff5f57","#28c840","#febc2e"][index]);
+d.style.setProperty("--c",["#4a9acc","#ff5f57","#28c840","#febc2e"][i]);
 
 d.innerHTML=`
-<img src="https://i.imgur.com/3Qf7Q8Q.png">
-<div class="caption">${name}</div>
+<div class="bar"><span></span></div>
+<h3>iPhone ${t}</h3>
+<div class="caption">Premium Device</div>
 `;
 
-document.getElementById("p1").appendChild(d);
-},index*2200);
+p1.appendChild(d);
+},i*2200);
 });
 
-setTimeout(()=>{p1.style.display="none";p2.style.display="block"},9000);
+setTimeout(()=>{
+p1.style.display="none";
+p2.style.display="block";
+},9000);
+}
+
+function buy(){
+count++;
+}
+
+function checkout(){
+p2.style.display="none";
+p3.style.display="block";
+document.querySelector(".road").style.display="block";
 }
 
 start();
 
-// CART
-function add(){
-count++;
-document.getElementById("count").innerText=count;
-}
-
-function openCart(){
-document.getElementById("modal").style.display="flex";
-document.getElementById("list").innerHTML=
-Array(count).fill(0).map(()=>"<div class='item'>iPhone <span>✕</span></div>").join("");
-}
-
-function order(){
-document.getElementById("modal").style.display="none";
-document.getElementById("p2").style.display="none";
-document.getElementById("p3").style.display="block";
-
-// CONFETTI
-for(let i=0;i<140;i++){
-confetti({particleCount:1,spread:100,origin:{y:0.6}});
-}
-
-// ROAD + TRUCK
-document.getElementById("road").style.display="block";
-}
+setTimeout(checkout,14000);
 
 </script>
 
