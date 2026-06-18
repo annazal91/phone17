@@ -131,15 +131,16 @@ button{
 
     <header>IPHONE STORE</header>
 
-    <div class="card" onclick="openModal('iPhone 17','images/iphone17.jpg')">
-      <img src="images/iphone17.jpg">
+    <div class="card" onclick="openModal('<img width="466" height="500" alt="e6a6d4e8-ee21-40a7-b73d-aa383826a9a6"
       <div>
         <b>iPhone 17</b><br>
         pink
       </div>
     </div>
 
-    <div class="card" onclick="openModal('iPhone 17 Pro','images/iphone17pro.jpg')">
+    <div class="card" onclick="openModal('iPhone 17 Pro','
+<img width="1280" height="1280" alt="7311ee27-45a2-43fc-b4e0-7ee0a502b547"
+      <img src="images/iphone17.jpg">')">
       <img src="images/iphone17pro.jpg">
       <div>
         <b>iPhone 17 Pro</b><br>
@@ -147,7 +148,8 @@ button{
       </div>
     </div>
 
-    <div class="card" onclick="openModal('iPhone 17 Pro Max','images/iphone17promax.jpg')">
+    <div class="card" onclick="openModal('iPhone 17 Pro Max','
+<img width="700" height="700" alt="f9437447-8517-42a3-a1cd-1f829f307276">
       <img src="images/iphone17promax.jpg">
       <div>
         <b>iPhone 17 Pro Max</b><br>
@@ -189,6 +191,20 @@ document.getElementById("slider").oninput = function(){
 function confirm(){
   document.getElementById("modal").style.display = "none";
   document.getElementById("success").style.display = "flex";
+}
+   startConfetti();
+}
+
+/* CONFETTI GENERATOR */
+function startConfetti(){
+  for(let i=0;i<120;i++){
+    let el = document.createElement("div");
+    el.className = "confetti";
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (2+Math.random()*3) + "s";
+    el.style.opacity = Math.random();
+    document.getElementById("success").appendChild(el);
+  }
 }
 </script>
 
