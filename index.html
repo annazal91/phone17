@@ -1,229 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RideX Pro Ad</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>iPhone Credit</title>
 
 <style>
 body{
-margin:0;
-overflow:hidden;
-font-family:Arial;
-background:#000;
-color:white;
+  margin:0;
+  background:#dcd2c2;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  padding:20px;
 }
 
-.phase{
-position:absolute;
-inset:0;
-display:none;
+/* PHONE MOCKUP */
+.phone{
+  width:360px;
+  height:720px;
+  background:#1b2a41;
+  border-radius:40px;
+  padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  overflow:hidden;
+  position:relative;
 }
 
-/* ---------- PHASE 1 ---------- */
-.slide{
-position:absolute;
-right:-200px;
-top:50%;
-transform:translateY(-50%);
-width:180px;
-height:320px;
-background:#111;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-animation:move 2.2s forwards;
-box-shadow:0 0 40px var(--c);
+/* SCREEN */
+.screen{
+  background:#e9e1d4;
+  width:100%;
+  height:100%;
+  border-radius:28px;
+  overflow:auto;
 }
 
-@keyframes move{
-0%{right:-200px;opacity:0}
-30%{opacity:1}
-70%{right:50%;transform:translateY(-50%) scale(1.1)}
-100%{right:120%;opacity:0}
+/* HEADER */
+header{
+  text-align:center;
+  padding:14px;
+  font-weight:800;
+  color:#ff8c2a;
+  background:#1b2a41;
 }
 
-.caption{
-position:absolute;
-bottom:-30px;
-font-size:12px;
-opacity:.7;
-}
-
-.bar{
-position:absolute;
-top:10px;
-left:10px;
-right:10px;
-height:3px;
-background:#222;
-}
-
-.bar span{
-display:block;
-height:100%;
-background:#4a9acc;
-animation:load 2.2s linear;
-}
-
-@keyframes load{from{width:0}to{width:100%}}
-
-/* ---------- PHASE 2 ---------- */
-.browser{
-width:90%;
-max-width:900px;
-margin:40px auto;
-background:#111;
-border-radius:15px;
-overflow:hidden;
-}
-
-.top{
-display:flex;
-padding:10px;
-background:#1a1a1a;
-}
-
-.dot{width:10px;height:10px;border-radius:50%;margin-right:6px}
-.red{background:red}
-.yellow{background:yellow}
-.green{background:lime}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-padding:20px;
-}
-
+/* CARDS */
 .card{
-background:#222;
-padding:20px;
-border-radius:10px;
-text-align:center;
+  margin:12px;
+  padding:12px;
+  background:#2b3f5c;
+  color:#fff;
+  border-radius:14px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  cursor:pointer;
 }
 
-.btn{
-margin-top:10px;
-background:green;
-border:none;
-padding:8px;
-color:white;
-border-radius:8px;
+.card img{
+  width:80px;
+  height:80px;
+  border-radius:10px;
+  object-fit:cover;
+  border:2px solid #ff8c2a;
 }
 
-/* ---------- PHASE 3 ---------- */
-.success{
-font-size:80px;
-text-align:center;
-margin-top:120px;
+.card b{
+  color:#ff8c2a;
 }
 
-.road{
-position:absolute;
-bottom:0;
-height:100px;
-width:100%;
-background:#111;
-display:none;
+/* MODAL */
+#modal{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
 }
 
-.lines{
-height:100%;
-background:repeating-linear-gradient(90deg,#fff 0 20px,transparent 20px 40px);
-opacity:.2;
-animation:moveRoad 1s linear infinite;
+.box{
+  background:#e9e1d4;
+  width:85%;
+  padding:15px;
+  border-radius:14px;
+  text-align:center;
 }
 
-@keyframes moveRoad{
-from{transform:translateX(0)}
-to{transform:translateX(-40px)}
+h3{
+  color:#ff8c2a;
+}
+
+input{
+  width:100%;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff8c2a;
+  color:#fff;
+  font-weight:800;
+}
+
+/* SUCCESS */
+#success{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:#1b2a41;
+  justify-content:center;
+  align-items:center;
+}
+
+.check{
+  font-size:110px;
+  color:#ff8c2a;
 }
 </style>
 </head>
 
 <body>
 
-<!-- PHASE 1 -->
-<div class="phase" id="p1"></div>
+<div class="phone">
+  <div class="screen">
 
-<!-- PHASE 2 -->
-<div class="phase" id="p2">
-<div class="browser">
-<div class="top">
-<div class="dot red"></div>
-<div class="dot yellow"></div>
-<div class="dot green"></div>
-</div>
+    <header>IPHONE STORE</header>
 
-<div class="grid">
-<div class="card">iPhone 17<button class="btn" onclick="buy()">Add</button></div>
-<div class="card">iPhone 17 Pro<button class="btn" onclick="buy()">Add</button></div>
-<div class="card">iPhone 16 Pro<button class="btn" onclick="buy()">Add</button></div>
-<div class="card">iPhone 16<button class="btn" onclick="buy()">Add</button></div>
-</div>
+    <div class="card" onclick="openModal('iPhone 17','images/iphone17.jpg')">
+      <img src="images/iphone17.jpg">
+      <div>
+        <b>iPhone 17</b><br>
+        pink
+      </div>
+    </div>
 
-</div>
-</div>
+    <div class="card" onclick="openModal('iPhone 17 Pro','images/iphone17pro.jpg')">
+      <img src="images/iphone17pro.jpg">
+      <div>
+        <b>iPhone 17 Pro</b><br>
+        black
+      </div>
+    </div>
 
-<!-- PHASE 3 -->
-<div class="phase" id="p3">
-<div class="success">✔</div>
-<div class="road"><div class="lines"></div></div>
+    <div class="card" onclick="openModal('iPhone 17 Pro Max','images/iphone17promax.jpg')">
+      <img src="images/iphone17promax.jpg">
+      <div>
+        <b>iPhone 17 Pro Max</b><br>
+        orange
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal">
+    <div class="box">
+      <h3 id="title"></h3>
+
+      <p>Term (months)</p>
+      <input id="slider" type="range" min="0" max="12" value="6">
+      <p><span id="val">6</span></p>
+
+      <button onclick="confirm()">CONFIRM</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="success">
+    <div class="check">✔</div>
+  </div>
 </div>
 
 <script>
-
-let p1=document.getElementById("p1");
-let p2=document.getElementById("p2");
-let p3=document.getElementById("p3");
-
-let count=0;
-
-function start(){
-
-p1.style.display="block";
-
-const phones=["17 Pro","17","17 Max","16 Pro"];
-
-phones.forEach((t,i)=>{
-setTimeout(()=>{
-let d=document.createElement("div");
-d.className="slide";
-d.style.setProperty("--c",["#4a9acc","#ff5f57","#28c840","#febc2e"][i]);
-
-d.innerHTML=`
-<div class="bar"><span></span></div>
-<h3>iPhone ${t}</h3>
-<div class="caption">Premium Device</div>
-`;
-
-p1.appendChild(d);
-},i*2200);
-});
-
-setTimeout(()=>{
-p1.style.display="none";
-p2.style.display="block";
-},9000);
+function openModal(name){
+  document.getElementById("title").innerText = name;
+  document.getElementById("modal").style.display = "flex";
 }
 
-function buy(){
-count++;
+document.getElementById("slider").oninput = function(){
+  document.getElementById("val").innerText = this.value;
+};
+
+function confirm(){
+  document.getElementById("modal").style.display = "none";
+  document.getElementById("success").style.display = "flex";
 }
-
-function checkout(){
-p2.style.display="none";
-p3.style.display="block";
-document.querySelector(".road").style.display="block";
-}
-
-start();
-
-setTimeout(checkout,14000);
-
 </script>
 
 </body>
