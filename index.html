@@ -10,96 +10,102 @@ body{
   margin:0;
   font-family:Arial;
   background:#e9e1d4;
-}
-
-/* PHONE */
-.phone{
-  max-width:380px;
-  margin:20px auto;
-  background:#1b2a41;
-  border-radius:30px;
-  padding:15px;
-}
-
-/* SCREEN */
-.screen{
-  background:#e9e1d4;
-  border-radius:20px;
-  overflow:hidden;
+  color:#1b2a41;
 }
 
 /* HEADER */
 header{
+  text-align:center;
+  padding:18px;
+  font-weight:800;
   background:#1b2a41;
   color:#ff8c2a;
-  text-align:center;
-  padding:14px;
-  font-weight:800;
+  font-size:18px;
 }
 
-/* CARD */
+/* PRODUCTS */
+.container{
+  padding:12px;
+}
+
 .card{
-  margin:10px;
-  padding:10px;
   background:#2b3f5c;
-  color:white;
-  border-radius:12px;
+  color:#fff;
   display:flex;
-  gap:10px;
+  gap:12px;
   align-items:center;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:12px;
   cursor:pointer;
 }
 
 .card img{
-  width:70px;
-  height:70px;
-  border-radius:10px;
+  width:85px;
+  height:85px;
   object-fit:cover;
+  border-radius:10px;
   border:2px solid #ff8c2a;
 }
 
+.card b{
+  color:#ff8c2a;
+}
+
 /* MODAL */
-.modal{
+#modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
+  background:rgba(27,42,65,0.9);
   justify-content:center;
   align-items:center;
 }
 
 .box{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  width:80%;
+  background:#e9e1d4;
+  padding:18px;
+  border-radius:14px;
+  width:85%;
   text-align:center;
+  color:#1b2a41;
+}
+
+h3{
+  color:#ff8c2a;
+}
+
+input{
+  width:100%;
 }
 
 button{
   width:100%;
-  padding:10px;
+  padding:12px;
   border:none;
   border-radius:10px;
   background:#ff8c2a;
-  color:white;
-  font-weight:bold;
+  color:#fff;
+  font-weight:800;
+  margin-top:10px;
 }
 
 /* SUCCESS */
-.success{
+#success{
   display:none;
   position:fixed;
   inset:0;
   background:#1b2a41;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  overflow:hidden;
 }
 
+/* CHECK */
 .check{
   font-size:100px;
   color:#ff8c2a;
+  z-index:2;
 }
 
 /* CONFETTI */
@@ -109,7 +115,7 @@ button{
   height:10px;
   background:#ff8c2a;
   top:-10px;
-  animation: fall 3s linear forwards;
+  animation:fall linear forwards;
 }
 
 @keyframes fall{
@@ -122,39 +128,52 @@ button{
 
 <body>
 
-<div class="phone">
-  <div class="screen">
+<header>BUY iPHONE — CREDIT OFFER</header>
 
-    <header>BUY iPHONE</header>
+<div class="container">
 
-    <div class="card" onclick="openModal('iPhone 17')">
-      <img src="images/iphone17.jpg">
-      <div>iPhone 17</div>
+  <div class="card" onclick="openModal('iPhone 17')">
+    <img src="https://images.unsplash.com/photo-1695048133142-1c1d7b5e3c9a?w=500">
+    <div>
+      <b>iPhone 17</b><br>
+      New generation device
     </div>
-
-    <div class="card" onclick="openModal('iPhone 17 Pro')">
-      <img src="images/iphone17pro.jpg">
-      <div>iPhone 17 Pro</div>
-    </div>
-
-    <div class="card" onclick="openModal('iPhone 17 Pro Max')">
-      <img src="images/iphone17promax.jpg">
-      <div>iPhone 17 Pro Max</div>
-    </div>
-
   </div>
+
+  <div class="card" onclick="openModal('iPhone 17 Pro')">
+    <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
+    <div>
+      <b>iPhone 17 Pro</b><br>
+      Titanium premium design
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('iPhone 17 Pro Max')">
+    <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
+    <div>
+      <b>iPhone 17 Pro Max</b><br>
+      Maximum performance
+    </div>
+  </div>
+
 </div>
 
 <!-- MODAL -->
-<div class="modal" id="modal">
+<div id="modal">
   <div class="box">
     <h3 id="title"></h3>
-    <button onclick="confirm()">CONFIRM</button>
+
+    <p>Select credit term (months)</p>
+
+    <input id="slider" type="range" min="0" max="12" value="6">
+    <p><span id="val">6</span> months</p>
+
+    <button onclick="confirm()">CONFIRM OFFER</button>
   </div>
 </div>
 
 <!-- SUCCESS -->
-<div class="success" id="success">
+<div id="success">
   <div class="check">✔</div>
 </div>
 
@@ -164,16 +183,21 @@ function openModal(name){
   document.getElementById("modal").style.display = "flex";
 }
 
+document.getElementById("slider").oninput = function(){
+  document.getElementById("val").innerText = this.value;
+};
+
 function confirm(){
   document.getElementById("modal").style.display = "none";
   document.getElementById("success").style.display = "flex";
 
-  for(let i=0;i<150;i++){
-    let d = document.createElement("div");
-    d.className = "confetti";
-    d.style.left = Math.random()*100 + "vw";
-    d.style.animationDuration = (2+Math.random()*3)+"s";
-    document.getElementById("success").appendChild(d);
+  /* BIG CONFETTI */
+  for(let i=0;i<200;i++){
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.animationDuration = (2+Math.random()*3)+"s";
+    document.getElementById("success").appendChild(c);
   }
 }
 </script>
