@@ -1,0 +1,118 @@
+<div class="cart-sheet">
+    <div class="cart-handle"></div>
+    <div class="cart-title">🛒 Your Cart</div>
+    <div id="cartItems"></div>
+    <button class="place-btn" onclick="openSlider()">Choose plan & Order 🚀</button>
+  </div>
+</div>
+
+<!-- SLIDER MODAL -->
+<div class="slider-modal" id="sliderModal">
+  <div class="slider-backdrop" onclick="closeSlider()"></div>
+  <div class="slider-sheet">
+
+    <div class="slider-phone-preview" id="sliderPreview">
+      <img class="slider-phone-img" id="sliderImg" src="{imgs[0]}" />
+      <div class="slider-phone-info">
+        <div class="slider-phone-name" id="sliderName">iPhone 16 Pro</div>
+        <div class="slider-phone-mem" id="sliderMem">128GB</div>
+      </div>
+    </div>
+
+    <div class="slider-label">Payment plan</div>
+    <div class="slider-months" id="sliderMonths">9</div>
+    <div class="slider-months-sub">months</div>
+
+    <div class="slider-track-wrap">
+      <div class="slider-track-v" id="sliderTrack">
+        <div class="slider-fill-v" id="sliderFill"></div>
+        <div class="slider-thumb-v" id="sliderThumb"></div>
+      </div>
+      <div class="finger-hint" id="fingerHint">👆</div>
+    </div>
+
+    <div class="slider-range-labels">
+      <span>9 mo</span>
+      <span>24 mo</span>
+    </div>
+
+    <button class="confirm-btn" id="confirmBtn" onclick="confirmOrder()">
+      Confirm — for illustration purposes only
+    </button>
+  </div>
+</div>
+
+<script>
+const cartImgs = ['{imgs[0]}','{imgs[1]}','{imgs[2]}','{imgs[3]}'];
+const cartNames = ['iPhone 16 Pro','iPhone 16 Pro Max','iPhone 17 Pro','iPhone 17 Pro Max'];
+let cart = [];
+const selectedMem = ['128GB','128GB','128GB','128GB'];
+let sliderPct = 0; // 0=bottom(9mo), 1=top(24mo)
+let isDragging = false;
+let sliderDone = false;
+const TARGET_PCT = 0.6; // ~18 months
+const MIN_MO = 9, MAX_MO = 24;
+
+function selectMem(idx, btn, mem) {{
+  selectedMem[idx] = mem;
+  document.querySelectorAll('#mem'+idx+' .mem-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}}
+
+function addToCart(idx, name) {{
+  const btn = document.querySelector('#card'+idx+' .add-btn');
+  btn.textContent = '✓ Added!'; btn.style.background = '#15803d';
+  setTimeout(() => {{ btn.textContent = 'Add to Cart'; btn.style.background = ''; }}, 1200);
+  document.getElementById('card'+idx).classList.add('added');
+  setTimeout(() => document.getElementById('card'+idx).classList.remove('added'), 500);
+  cart.push({{name, mem: selectedMem[idx], img: cartImgs[idx], idx}});
+  document.getElementById('cartCount').textContent = cart.length;
+}}
+
+function openCart() {{
+  const el = document.getElementById('cartItems');
+  if (cart.length === 0) {{
+    el.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+  }} else {{
+    el.innerHTML = cart.map((item, i) => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${{item.img}}" />
+        <div class="cart-item-info">
+          <div class="cart-item-name">${{item.name}}</div>
+          <div class="cart-item-mem">${{item.mem}}</div>
+        </div>
+        <button class="cart-remove" onclick="removeFromCart(${{i}})">✕</button>
+      </div>`).join('');
+  }}
+  document.getElementById('cartModal').classList.add('open');
+}}
+
+function closeCart() {{ document.getElementById('cartModal').classList.remove('open'); }}
+
+function removeFromCart(i) {{
+  cart.splice(i, 1);
+  document.getElementById('cartCount').textContent = cart.length;
+  openCart();
+}}
+
+// SLIDER
+function openSlider() {{
+  closeCart();
+  sliderPct = 0;
+  sliderDone = false;
+  updateSliderUI(0);
+  document.getElementById('confirmBtn').classList.remove('ready');
+
+  // Show last added item preview
+  if (cart.length > 0) {{
+    const last = cart[cart.length - 1];
+    document.getElementById('sliderImg').src = last.img;
+    document.getElementById('sliderName').textContent = last.name;
+    document.getElementById('sliderMem').textContent = last.mem;
+  }}
+
+  document.getElementById('sliderModal').classList.add('open');
+
+  // Show finger hint
+  const hint = document.getElementById('fingerHint');
+  hint.classList.
