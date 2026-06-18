@@ -3,109 +3,117 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>iPhone Credit</title>
+<title>iPhone Store</title>
 
 <style>
 body{
   margin:0;
-  font-family:Arial;
-  background:#e9e1d4;
-  color:#1b2a41;
+  background:#d8cfc1;
+  font-family:-apple-system, Arial;
+  display:flex;
+  justify-content:center;
+  padding:20px;
 }
 
-/* HEADER */
-header{
-  text-align:center;
-  padding:18px;
-  font-weight:800;
+/* 🔥 PHONE FRAME */
+.phone{
+  width:370px;
+  height:760px;
+  background:#111;
+  border-radius:45px;
+  padding:14px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.4);
+}
+
+/* SCREEN */
+.screen{
+  width:100%;
+  height:100%;
+  background:#f5f5f7;
+  border-radius:35px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* TOP BAR */
+.topbar{
   background:#1b2a41;
   color:#ff8c2a;
-  font-size:18px;
+  text-align:center;
+  padding:14px;
+  font-weight:800;
 }
 
 /* PRODUCTS */
-.container{
+.list{
   padding:12px;
 }
 
 .card{
-  background:#2b3f5c;
-  color:#fff;
+  background:#fff;
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:12px;
   display:flex;
   gap:12px;
   align-items:center;
-  padding:12px;
-  border-radius:14px;
-  margin-bottom:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
   cursor:pointer;
 }
 
 .card img{
-  width:85px;
-  height:85px;
+  width:80px;
+  height:80px;
   object-fit:cover;
-  border-radius:10px;
-  border:2px solid #ff8c2a;
+  border-radius:12px;
 }
 
 .card b{
   color:#ff8c2a;
 }
 
-/* MODAL */
-#modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(27,42,65,0.9);
-  justify-content:center;
-  align-items:center;
+/* SHEET (iOS style) */
+.sheet{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  border-radius:20px 20px 0 0;
+  padding:16px;
+  transform:translateY(100%);
+  transition:0.3s;
+  box-shadow:0 -10px 30px rgba(0,0,0,0.2);
 }
 
-.box{
-  background:#e9e1d4;
-  padding:18px;
-  border-radius:14px;
-  width:85%;
-  text-align:center;
-  color:#1b2a41;
-}
-
-h3{
-  color:#ff8c2a;
-}
-
-input{
-  width:100%;
+.sheet.show{
+  transform:translateY(0);
 }
 
 button{
   width:100%;
   padding:12px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:#ff8c2a;
   color:#fff;
   font-weight:800;
-  margin-top:10px;
 }
 
 /* SUCCESS */
-#success{
-  display:none;
-  position:fixed;
+.success{
+  position:absolute;
   inset:0;
-  background:#1b2a41;
+  background:#f5f5f7;
+  display:none;
   justify-content:center;
   align-items:center;
   overflow:hidden;
 }
 
-/* CHECK */
 .check{
-  font-size:100px;
+  font-size:110px;
   color:#ff8c2a;
-  z-index:2;
 }
 
 /* CONFETTI */
@@ -115,7 +123,7 @@ button{
   height:10px;
   background:#ff8c2a;
   top:-10px;
-  animation:fall linear forwards;
+  animation:fall 3s linear forwards;
 }
 
 @keyframes fall{
@@ -128,70 +136,54 @@ button{
 
 <body>
 
-<header>BUY iPHONE — CREDIT OFFER</header>
+<div class="phone">
+<div class="screen">
 
-<div class="container">
+  <div class="topbar">iPhone Store</div>
 
-  <div class="card" onclick="openModal('iPhone 17')">
-    <img src="https://images.unsplash.com/photo-1695048133142-1c1d7b5e3c9a?w=500">
-    <div>
-      <b>iPhone 17</b><br>
-      New generation device
+  <div class="list">
+
+    <div class="card" onclick="openSheet('iPhone 17')">
+      <img src="https://images.unsplash.com/photo-1695048133142-1c1d7b5e3c9a?w=500">
+      <div><b>iPhone 17</b><br>New generation</div>
     </div>
+
+    <div class="card" onclick="openSheet('iPhone 17 Pro')">
+      <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
+      <div><b>iPhone 17 Pro</b><br>Pro performance</div>
+    </div>
+
+    <div class="card" onclick="openSheet('iPhone 17 Pro Max')">
+      <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
+      <div><b>iPhone 17 Pro Max</b><br>Maximum power</div>
+    </div>
+
   </div>
 
-  <div class="card" onclick="openModal('iPhone 17 Pro')">
-    <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
-    <div>
-      <b>iPhone 17 Pro</b><br>
-      Titanium premium design
-    </div>
-  </div>
-
-  <div class="card" onclick="openModal('iPhone 17 Pro Max')">
-    <img src="https://images.unsplash.com/photo-1695653420142-5f7a9a1b3a7d?w=500">
-    <div>
-      <b>iPhone 17 Pro Max</b><br>
-      Maximum performance
-    </div>
-  </div>
-
-</div>
-
-<!-- MODAL -->
-<div id="modal">
-  <div class="box">
+  <!-- SHEET -->
+  <div class="sheet" id="sheet">
     <h3 id="title"></h3>
-
-    <p>Select credit term (months)</p>
-
-    <input id="slider" type="range" min="0" max="12" value="6">
-    <p><span id="val">6</span> months</p>
-
-    <button onclick="confirm()">CONFIRM OFFER</button>
+    <button onclick="confirm()">CONFIRM</button>
   </div>
-</div>
 
-<!-- SUCCESS -->
-<div id="success">
-  <div class="check">✔</div>
+  <!-- SUCCESS -->
+  <div class="success" id="success">
+    <div class="check">✔</div>
+  </div>
+
+</div>
 </div>
 
 <script>
-function openModal(name){
+function openSheet(name){
   document.getElementById("title").innerText = name;
-  document.getElementById("modal").style.display = "flex";
+  document.getElementById("sheet").classList.add("show");
 }
 
-document.getElementById("slider").oninput = function(){
-  document.getElementById("val").innerText = this.value;
-};
-
 function confirm(){
-  document.getElementById("modal").style.display = "none";
+  document.getElementById("sheet").classList.remove("show");
   document.getElementById("success").style.display = "flex";
 
-  /* BIG CONFETTI */
   for(let i=0;i<200;i++){
     let c = document.createElement("div");
     c.className = "confetti";
