@@ -188,19 +188,6 @@ document.getElementById("slider").oninput = function(){
 function confirm(){
   document.getElementById("modal").style.display = "none";
   document.getElementById("success").style.display = "flex";
-} startConfetti();
-}
-
-/* CONFETTI GENERATOR */
-function startConfetti(){
-  for(let i=0;i<120;i++){
-    let el = document.createElement("div");
-    el.className = "confetti";
-    el.style.left = Math.random()*100 + "vw";
-    el.style.animationDuration = (2+Math.random()*3) + "s";
-    el.style.opacity = Math.random();
-    document.getElementById("success").appendChild(el);
-  }
 }
 </script>
 
