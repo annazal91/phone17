@@ -1,4 +1,3 @@
-images/README.md
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -129,29 +128,29 @@ button{
 <div class="phone">
   <div class="screen">
 
-    <header>IPHONE STORE</header>
+    <header>BUY iPHONE — CREDIT</header>
 
-    <div class="card" onclick="openModal
+    <div class="card" onclick="openModal('iPhone 17','images/iphone17.jpg')">
+      <img src="images/iphone17.jpg">
       <div>
         <b>iPhone 17</b><br>
-        pink
+        New generation
       </div>
     </div>
 
-    <div class="card" onclick="openModal('iPhone 17 Pro','
-      <img src="images/iphone17.jpg">')">
+    <div class="card" onclick="openModal('iPhone 17 Pro','images/iphone17pro.jpg')">
       <img src="images/iphone17pro.jpg">
       <div>
         <b>iPhone 17 Pro</b><br>
-        black
+        Premium design
       </div>
     </div>
 
-    <div class="card" onclick="openModal('iPhone 17 Pro Max','
+    <div class="card" onclick="openModal('iPhone 17 Pro Max','images/iphone17promax.jpg')">
       <img src="images/iphone17promax.jpg">
       <div>
         <b>iPhone 17 Pro Max</b><br>
-        orange
+        Max performance
       </div>
     </div>
 
@@ -189,8 +188,7 @@ document.getElementById("slider").oninput = function(){
 function confirm(){
   document.getElementById("modal").style.display = "none";
   document.getElementById("success").style.display = "flex";
-}
-   startConfetti();
+} startConfetti();
 }
 
 /* CONFETTI GENERATOR */
