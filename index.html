@@ -1,34 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>iPhone Credit</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#e9e1d4;
+}
+
+/* PHONE */
+.phone{
+  max-width:380px;
+  margin:20px auto;
+  background:#1b2a41;
+  border-radius:30px;
+  padding:15px;
+}
+
+/* SCREEN */
+.screen{
+  background:#e9e1d4;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+/* HEADER */
+header{
+  background:#1b2a41;
+  color:#ff8c2a;
+  text-align:center;
+  padding:14px;
+  font-weight:800;
+}
+
+/* CARD */
+.card{
+  margin:10px;
+  padding:10px;
+  background:#2b3f5c;
+  color:white;
+  border-radius:12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  cursor:pointer;
+}
+
+.card img{
+  width:70px;
+  height:70px;
+  border-radius:10px;
+  object-fit:cover;
+  border:2px solid #ff8c2a;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  width:80%;
+  text-align:center;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff8c2a;
+  color:white;
+  font-weight:bold;
+}
+
+/* SUCCESS */
+.success{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#1b2a41;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.check{
+  font-size:100px;
+  color:#ff8c2a;
+}
+
+/* CONFETTI */
+.confetti{
+  position:absolute;
+  width:6px;
+  height:10px;
+  background:#ff8c2a;
+  top:-10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+  <div class="screen">
+
+    <header>BUY iPHONE</header>
+
+    <div class="card" onclick="openModal('iPhone 17')">
+      <img src="images/iphone17.jpg">
+      <div>iPhone 17</div>
+    </div>
+
+    <div class="card" onclick="openModal('iPhone 17 Pro')">
+      <img src="images/iphone17pro.jpg">
+      <div>iPhone 17 Pro</div>
+    </div>
+
+    <div class="card" onclick="openModal('iPhone 17 Pro Max')">
+      <img src="images/iphone17promax.jpg">
+      <div>iPhone 17 Pro Max</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="box">
+    <h3 id="title"></h3>
+    <button onclick="confirm()">CONFIRM</button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+  <div class="check">✔</div>
+</div>
+
 <script>
 function openModal(name){
   document.getElementById("title").innerText = name;
   document.getElementById("modal").style.display = "flex";
 }
 
-document.getElementById("slider").oninput = function(){
-  document.getElementById("val").innerText = this.value;
-};
-
 function confirm(){
   document.getElementById("modal").style.display = "none";
   document.getElementById("success").style.display = "flex";
 
-  startConfetti();
-}
-
-/* 🔥 БАГАТО КОНФЕТІ + ПОСТІЙНО */
-function startConfetti(){
-  for(let i=0;i<200;i++){
-    let el = document.createElement("div");
-    el.style.position = "absolute";
-    el.style.width = "8px";
-    el.style.height = "12px";
-    el.style.background = "#ff8c2a";
-    el.style.left = Math.random()*100 + "vw";
-    el.style.top = "-20px";
-    el.style.opacity = Math.random();
-    el.style.animation = fall ${2 + Math.random()*3}s linear forwards;
-
-    document.getElementById("success").appendChild(el);
+  for(let i=0;i<150;i++){
+    let d = document.createElement("div");
+    d.className = "confetti";
+    d.style.left = Math.random()*100 + "vw";
+    d.style.animationDuration = (2+Math.random()*3)+"s";
+    document.getElementById("success").appendChild(d);
   }
 }
 </script>
+
+</body>
+</html>
